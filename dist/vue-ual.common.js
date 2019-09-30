@@ -1,5 +1,5 @@
 /*!
- * vue-ual v0.3.0 
+ * vue-ual v0.3.1 
  * (c) 2019 James Harrington
  * Released under the MIT License.
  */
