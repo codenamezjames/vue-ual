@@ -18,7 +18,12 @@ export default {
       function (...arg) { return self.loginCallback(...arg) },
       options.nets,
       options.name,
-      options.authenticators.map(Auth => new Auth(options.nets)),
+      options.authenticators.map(Auth => {
+        if (typeof Auth === 'object') {
+          const nets = options.nets.filter(net =>  Auth.netChainIds ? Auth.netChainIds.includes(net.chainId) : true)
+          return new Auth.authenticator(nets, Auth.options || null)
+        } else {return new Auth(options.nets)}
+      }),
       { containerElement: this.$refs['ual-mount-point'] }
     )
 

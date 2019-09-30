@@ -13,6 +13,7 @@
 /* eslint-disable no-console */
 import {ualTrigger, version} from './plugin'
 import { Ledger } from 'ual-ledger'
+import { Scatter } from 'ual-scatter'
 import { MockAuthenticator } from './components/authMock'
 
 export default {
@@ -38,6 +39,7 @@ export default {
         }],
         authenticators: [
           Ledger,
+          {authenticator: Scatter, netChainIds: [12345], options: { appName: 'UAL Example' }},
           MockAuthenticator
         ],
       }

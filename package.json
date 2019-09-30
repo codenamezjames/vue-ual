@@ -1,6 +1,11 @@
 {
   "name": "vue-ual",
-  "version": "0.2.0",
+  "version": "0.3.0",
+  "author": {
+    "name": "James Harrington",
+    "email": "jamesdonaldharrington@gmail.com",
+    "url": "https://www.jamesdonaldharrington.com/"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -35,6 +40,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "ual-scatter": "^0.1.6",
     "vue": "^2.6.10",
     "vue-cli-plugin-p11n": "^0.4.0",
     "vue-template-compiler": "^2.6.10"

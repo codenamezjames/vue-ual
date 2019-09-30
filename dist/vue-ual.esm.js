@@ -1,12 +1,8 @@
 /*!
- * vue-ual v0.1.2 
- * (c) 2019 
+ * vue-ual v0.3.0 
+ * (c) 2019 James Harrington
  * Released under the MIT License.
  */
-import { Ledger } from 'ual-ledger';
-import { UALJs } from 'ual-plainjs-renderer';
-import { Authenticator, UALError, UALErrorType, User } from 'universal-authenticator-library';
-
 function _typeof(obj) {
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
     _typeof = function (obj) {
@@ -55,75 +51,6 @@ function _asyncToGenerator(fn) {
       _next(undefined);
     });
   };
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (typeof call === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
 }
 
 function createCommonjsModule(fn, module) {
@@ -839,229 +766,79 @@ var runtime_1 = createCommonjsModule(function (module) {
 
 var regenerator = runtime_1;
 
-var signatureResponse = {
-  wasBroadcast: true,
-  transactionId: 'Mock transaction Id'
-};
-var MockUser =
-/*#__PURE__*/
-function (_User) {
-  _inherits(MockUser, _User);
+//
+//
+//
+//
+//
 
-  function MockUser(accountName, chains) {
-    var _this;
-
-    _classCallCheck(this, MockUser);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(MockUser).call(this));
-    _this.accountName = '';
-    _this.chains = [];
-    _this.accountName = accountName;
-    _this.chains = chains;
-    return _this;
-  }
-
-  _createClass(MockUser, [{
-    key: "getKeys",
-    value: function getKeys() {
-      return Promise.resolve([]);
-    }
-  }, {
-    key: "signTransaction",
-    value: function signTransaction(transaction, config) {
-      console.info('Requested signature config', config);
-      console.info('Requested signature for', transaction);
-      return Promise.resolve(signatureResponse);
-    }
-  }, {
-    key: "getAccountName",
-    value: function getAccountName() {
-      return Promise.resolve(this.accountName);
-    }
-  }, {
-    key: "getChainId",
-    value: function getChainId() {
-      return Promise.resolve(this.chains[0].chainId);
-    }
-  }, {
-    key: "signArbitrary",
-    value: function signArbitrary(publicKey, data, helpText) {
-      return new Promise(function (resolve, reject) {
-        reject(new UALError('Not implemented', UALErrorType.Signing, null, 'Mock User'));
-      });
-    }
-  }, {
-    key: "verifyKeyOwnership",
-    value: function verifyKeyOwnership(_) {
-      return new Promise(function (resolve) {
-        resolve(true);
-      });
-    }
-  }]);
-
-  return MockUser;
-}(User);
-
-function MockAuthenticator(chains) {
-  new Authenticator(chains);
-  this.loading = true;
-}
-
-MockAuthenticator.prototype = Object.create(Authenticator.prototype);
-MockAuthenticator.prototype.constructor = MockAuthenticator;
-
-MockAuthenticator.prototype.toString = function () {
-  return 'MockAuthenticator > ' + Authenticator.prototype.toString.call(this);
-};
-
-MockAuthenticator.prototype.getOnboardingLink = function () {
-  return 'https://localhost';
-};
-
-MockAuthenticator.prototype.getStyle = function () {
-  return {
-    /* tslint:disable */
-    icon: '',
-
-    /* tslint:enable */
-    textColor: 'white',
-    background: 'blue',
-    text: 'Mock Auths'
-  };
-};
-
-MockAuthenticator.prototype.shouldRender = function () {
-  return true;
-};
-
-MockAuthenticator.prototype.shouldAutoLogin = function () {
-  return false;
-};
-
-MockAuthenticator.prototype.login = function (accountName) {
-  alert('Mock Login Authenticator Triggered');
-  console.info('Attempted login with ', accountName); // Simulate login delay response
-  // return new Promise<[MockUser]>((resolve) => {
-  //   setTimeout(() => {
-  //     resolve([new MockUser(accountName || '', this.chains)])
-  //   }, 4000)
-  // })
-  // return Promise.reject(new UALError('it broke', UALErrorType.Login, null, 'Mock Authenticator'))
-  // Login without a delay response
-
-  return Promise.resolve([new MockUser(accountName || '', this.chains)]);
-};
-
-MockAuthenticator.prototype.shouldRequestAccountName = function () {
-  return Promise.resolve(true);
-};
-
-MockAuthenticator.prototype.logout = function () {
-  console.info('Logging out');
-  return Promise.resolve();
-};
-
-MockAuthenticator.prototype.init =
-/*#__PURE__*/
-_asyncToGenerator(
-/*#__PURE__*/
-regenerator.mark(function _callee() {
-  return regenerator.wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          this.loading = false;
-
-        case 1:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, _callee, this);
-}));
-
-MockAuthenticator.prototype.isLoading = function () {
-  return this.loading;
-};
-
-MockAuthenticator.prototype.isErrored = function () {
-  return false;
-};
-
-MockAuthenticator.prototype.getError = function () {
-  return new UALError('Initialization Error', UALErrorType.Initialization, null, 'this guy');
-};
-
-MockAuthenticator.prototype.reset = function () {
-  console.info('resetting mock authenticator');
-};
-
-MockAuthenticator.prototype.requiresGetKeyConfirmation = function () {
-  return false;
-};
-
-var exampleNet = {
-  chainId: 12345,
-  rpcEndpoints: [{
-    protocol: 'https',
-    host: 'example.net',
-    port: Number(443)
-  }]
-};
+/* eslint-disable no-console */
 var script = {
   name: 'ualTrigger',
-  mounted: function mounted() {
-    var self = this;
-    var ual = new UALJs(self.userCallback, [exampleNet], 'UAL Test', [// new Scatter([exampleNet], { appName: 'UAL Example' }),
-    new Ledger([exampleNet]), new MockAuthenticator([exampleNet])], {
-      containerElement: document.getElementById('ual-mount-point')
-    });
-    ual.init();
-  },
-  methods: {
-    userCallback: function () {
-      var _userCallback = _asyncToGenerator(
-      /*#__PURE__*/
-      regenerator.mark(function _callee(users) {
-        var loggedInUser;
-        return regenerator.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                loggedInUser = users[0];
-                console.info('User Information:');
-                _context.t0 = console;
-                _context.next = 5;
-                return loggedInUser.getAccountName();
+  mounted: function () {
+    var _mounted = _asyncToGenerator(
+    /*#__PURE__*/
+    regenerator.mark(function _callee() {
+      var _ref, UALJs, self, options, ual;
 
-              case 5:
-                _context.t1 = _context.sent;
+      return regenerator.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return import('ual-plainjs-renderer');
 
-                _context.t0.info.call(_context.t0, 'Account Name:', _context.t1);
+            case 2:
+              _ref = _context.sent;
+              UALJs = _ref.UALJs;
+              self = this;
+              options = this.options;
+              ual = new UALJs(function () {
+                return self.loginCallback.apply(self, arguments);
+              }, options.nets, options.name, options.authenticators.map(function (Auth) {
+                if (_typeof(Auth) === 'object') {
+                  var nets = options.nets.filter(function (net) {
+                    return Auth.netChainIds ? Auth.netChainIds.includes(net.chainId) : true;
+                  });
+                  return new Auth.authenticator(nets, Auth.options || null);
+                } else {
+                  return new Auth(options.nets);
+                }
+              }), {
+                containerElement: this.$refs['ual-mount-point']
+              });
+              ual.init();
 
-                _context.t2 = console;
-                _context.next = 10;
-                return loggedInUser.getChainId();
-
-              case 10:
-                _context.t3 = _context.sent;
-
-                _context.t2.info.call(_context.t2, 'Chain Id:', _context.t3);
-
-              case 12:
-              case "end":
-                return _context.stop();
-            }
+            case 8:
+            case "end":
+              return _context.stop();
           }
-        }, _callee);
-      }));
+        }
+      }, _callee, this);
+    }));
 
-      function userCallback(_x) {
-        return _userCallback.apply(this, arguments);
+    function mounted() {
+      return _mounted.apply(this, arguments);
+    }
+
+    return mounted;
+  }(),
+  methods: {
+    loginCallback: function loginCallback() {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
       }
 
-      return userCallback;
-    }()
+      return this.$emit.apply(this, ['login'].concat(args));
+    }
+  },
+  props: {
+    options: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    }
   }
 };
 
@@ -1154,13 +931,13 @@ var normalizeComponent_1 = normalizeComponent;
 const __vue_script__ = script;
 
 /* template */
-var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"ual-mount-point"}})};
+var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"ual-mount-point"})};
 var __vue_staticRenderFns__ = [];
 
   /* style */
   const __vue_inject_styles__ = undefined;
   /* scoped */
-  const __vue_scope_id__ = "data-v-72137e14";
+  const __vue_scope_id__ = "data-v-aaf2d0c4";
   /* module identifier */
   const __vue_module_identifier__ = undefined;
   /* functional template */
