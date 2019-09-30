@@ -1,15 +1,29 @@
 {
   "name": "vue-ual",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "demo": "vue-cli-service demo",
+    "docs": "npm run docs:serve",
+    "docs:build": "vue-cli-service docs --mode build",
+    "docs:serve": "vue-cli-service docs --mode serve",
+    "prepublish": "vue-cli-service lint && vue-cli-service docs --mode build && vue-cli-service build",
+    "start": "vue-cli-service serve"
   },
+  "main": "dist/vue-ual.common.js",
+  "module": "dist/vue-ual.esm.js",
+  "unpkg": "dist/vue-ual.umd.min.js",
+  "files": [
+    "dist/vue-ual.common.js",
+    "dist/vue-ual.umd.min.js",
+    "dist/vue-ual.umd.js",
+    "dist/vue-ual.esm.js",
+    "src"
+  ],
   "dependencies": {
-    "core-js": "^2.6.5",
-    "vue": "^2.6.10"
+    "core-js": "^2.6.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
@@ -18,7 +32,9 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "vue-cli-plugin-p11n": "^0.4.0",
+    "vue-template-compiler": "^2.6.10",
+    "vue": "^2.6.10"
   },
   "eslintConfig": {
     "root": true,
@@ -42,5 +58,8 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "jsdelivr": "dist/vue-ual.umd.min.js",
+  "sideeffects": false,
+  "license": "MIT"
 }
