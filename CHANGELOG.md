@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.4] - 2019-09-30
 ### Changed
 - Fixed mock auth errors
+- Moving options out in to the component level
+### Added
+- Options object to the component that accepts `name` and `net`
+- @login event to the component that expects a function that gets called with an array of users as the parameter
 
 ## [0.1.3] - 2019-09-29
 ### Added

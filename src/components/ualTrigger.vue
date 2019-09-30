@@ -1,7 +1,6 @@
 
 <template>
-  <div id="ual-mount-point">
-  </div>
+  <div ref="ual-mount-point"></div>
 </template>
 
 <script>
@@ -10,42 +9,39 @@ import { Ledger } from 'ual-ledger'
 import { UALJs } from 'ual-plainjs-renderer'
 import { MockAuthenticator } from './authMock'
 
-const exampleNet = {
-  chainId: 12345,
-  rpcEndpoints: [{
-    protocol: 'https',
-    host: 'example.net',
-    port: Number(443),
-  }]
-}
+
 
 export default {
   name: 'ualTrigger',
   mounted () {
     const self = this
+    const options = this.options
+
+
     const ual = new UALJs(
-      self.userCallback,
-      [exampleNet],
-      'VUE UAL Test',
+      function (...arg) { return self.loginCallback(...arg) },
+      [options.net],
+      options.name,
       [
-        new Ledger([exampleNet]),
-        new MockAuthenticator([exampleNet]),
+        new Ledger([options.net]),
+        new MockAuthenticator([options.net]),
       ],
       {
-        containerElement: document.getElementById('ual-mount-point')
+        containerElement: this.$refs['ual-mount-point']
       }
     )
 
     ual.init()
   },
   methods: {
-    userCallback: async users => {
-      const loggedInUser = users[0]
-      console.info('User Information:')
-      console.info('Account Name:', await loggedInUser.getAccountName())
-      console.info('Chain Id:', await loggedInUser.getChainId())
-
-      // balanceUpdateInterval = setInterval(updateBalance, 1000)
+    loginCallback (...args) {
+      return this.$emit('login', ...args)
+    }
+  },
+  props: {
+    options: {
+      type: Object,
+      default: () => ({})
     }
   }
 }

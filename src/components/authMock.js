@@ -83,7 +83,7 @@ MockAuthenticator.prototype.login = function(accountName) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([new MockUser(accountName || '', this.chains)])
-    }, 4000)
+    }, 1000)
   })
 }
 MockAuthenticator.prototype.shouldRequestAccountName = function() {
