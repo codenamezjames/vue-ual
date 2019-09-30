@@ -5,38 +5,43 @@ const signatureResponse = {
     wasBroadcast: true,
     transactionId: 'Mock transaction Id'
 };
-export class MockUser extends User {
-    constructor(accountName, chains) {
-        super();
-        this.accountName = '';
-        this.chains = [];
-        this.accountName = accountName;
-        this.chains = chains;
-    }
-    getKeys() {
-        return Promise.resolve([]);
-    }
-    signTransaction(transaction, config) {
-        console.info('Requested signature config', config);
-        console.info('Requested signature for', transaction);
-        return Promise.resolve(signatureResponse);
-    }
-    getAccountName() {
-        return Promise.resolve(this.accountName);
-    }
-    getChainId() {
-        return Promise.resolve(this.chains[0].chainId);
-    }
-    signArbitrary(publicKey, data, helpText) {
-        return new Promise((resolve, reject) => {
-            reject(new UALError('Not implemented', UALErrorType.Signing, null, 'Mock User'));
-        });
-    }
-    verifyKeyOwnership(_) {
-        return new Promise((resolve) => {
-            resolve(true);
-        });
-    }
+
+function MockUser (accountName, chains) {
+  new User(chains)
+  this.accountName = '';
+  this.chains = [];
+  this.accountName = accountName;
+  this.chains = chains || [{chainId:0}];
+}
+MockUser.prototype = Object.create(User.prototype);
+MockUser.prototype.constructor = MockUser;
+
+MockUser.prototype.toString = function() {
+  return 'MockUser > ' + User.prototype.toString.call(this)
+}
+MockUser.prototype.getKeys = function() {
+    return Promise.resolve([]);
+}
+MockUser.prototype.signTransaction = function(transaction, config) {
+    console.info('Requested signature config', config);
+    console.info('Requested signature for', transaction);
+    return Promise.resolve(signatureResponse);
+}
+MockUser.prototype.getAccountName = function() {
+    return Promise.resolve(this.accountName);
+}
+MockUser.prototype.getChainId = function() {
+    return Promise.resolve(this.chains[0].chainId);
+}
+MockUser.prototype.signArbitrary = function(publicKey, data, helpText) {
+    return new Promise((resolve, reject) => {
+        reject(new UALError('Not implemented', UALErrorType.Signing, null, 'Mock User'));
+    });
+}
+MockUser.prototype.verifyKeyOwnership = function(_) {
+    return new Promise((resolve) => {
+        resolve(true);
+    });
 }
 
 
@@ -108,4 +113,4 @@ MockAuthenticator.prototype.reset = function() {
 MockAuthenticator.prototype.requiresGetKeyConfirmation = function() {
   return false;
 }
-export {MockAuthenticator}
+export {MockAuthenticator, MockUser}
