@@ -1,38 +1,52 @@
 # Getting Started
 
-> We will be using [ES2015](https://github.com/lukehoban/es6features) in the code samples in the guide.
+> We will be using [ES2016](https://github.com/lukehoban/es6features) in the code samples in the guide.
 
 
 ## HTML
 
 ```html
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-ual/dist/vue-ual.js"></script>
-
-<div id="#app">
-  <!-- NOTE: here the outputs -->
-</div>
+<!-- HTML: -->
+<template>
+  <ual-trigger :options="opts" @login="userCallback" />
+</template>
 ```
 
 ## JavaScript
 
 ```javascript
-// If using a module system (e.g. via Vue CLI), import Vue and vue-ual and then call Vue.use(vue-ual).
-// import Vue from 'vue'
-// import vue-ual from 'vue-ual'
-//
-// Vue.use(vue-ual)
+// Script:
+import {ualTrigger, version} from 'vue-ual'
+import { Scatter } from 'ual-scatter'
 
-// NOTE: here the example
-
-// Now the app has started!
-new Vue({ }).$mount('#app')
-```
-
-Output the following:
-
-```html
-<div id="#app">
-  <!-- NOTE: here the outputs -->
-</div>
+export default {
+  components: {
+    ualTrigger
+  },
+  data () {
+    return {
+      version,
+      opts: {
+        name: 'VUE UAL test',
+        nets: [{
+          chainId: 12345,
+          rpcEndpoints: [{ protocol: 'https', host: 'example.net', port: Number(443), }]
+        }],
+        authenticators: [
+          {authenticator: Scatter, netChainIds: [12345], options: { appName: 'UAL Example' }},
+        ]
+      }
+    }
+  },
+  methods: {
+    async userCallback (users) {
+      const loggedInUser = users[0]
+      this.user.name = await loggedInUser.getAccountName()
+      this.user.chainId = await loggedInUser.getChainId()
+      console.info('User Information:')
+      console.info('Account Name:', this.user.name)
+      console.info('Chain Id:', this.user.chainId)
+    }
+  }
+}
 ```
