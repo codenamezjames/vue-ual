@@ -12,6 +12,8 @@
 <script>
 /* eslint-disable no-console */
 import {ualTrigger, version} from './plugin'
+import { Ledger } from 'ual-ledger'
+import { MockAuthenticator } from './components/authMock'
 
 export default {
   components: {
@@ -20,21 +22,24 @@ export default {
   data: function() {
     return {
       version,
-      loggedInUser: {},
       user: {
         name: '',
         chainId: ''
       },
-      opts:{
+      opts: {
         name: 'VUE UAL test',
-        net: {
+        nets: [{
           chainId: 12345,
           rpcEndpoints: [{
             protocol: 'https',
             host: 'example.net',
             port: Number(443),
           }]
-        }
+        }],
+        authenticators: [
+          Ledger,
+          MockAuthenticator
+        ],
       }
     };
   },
@@ -43,9 +48,9 @@ export default {
       return JSON.stringify(item, null, 2)
     },
     async userCallback (users) {
-      this.loggedInUser = users[0]
-      this.user.name = await this.loggedInUser.getAccountName()
-      this.user.chainId = await this.loggedInUser.getChainId()
+      const loggedInUser = users[0]
+      this.user.name = await loggedInUser.getAccountName()
+      this.user.chainId = await loggedInUser.getChainId()
       console.info('User Information:')
       console.info('Account Name:', this.user.name)
       console.info('Chain Id:', this.user.chainId)

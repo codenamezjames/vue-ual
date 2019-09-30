@@ -5,30 +5,21 @@
 
 <script>
 /* eslint-disable no-console */
-import { Ledger } from 'ual-ledger'
-import { UALJs } from 'ual-plainjs-renderer'
-import { MockAuthenticator } from './authMock'
-
-
-
 export default {
   name: 'ualTrigger',
-  mounted () {
+  async mounted () {
+    // import here for SSR
+    const { UALJs } = await import('ual-plainjs-renderer')
+
     const self = this
     const options = this.options
 
-
     const ual = new UALJs(
       function (...arg) { return self.loginCallback(...arg) },
-      [options.net],
+      options.nets,
       options.name,
-      [
-        new Ledger([options.net]),
-        new MockAuthenticator([options.net]),
-      ],
-      {
-        containerElement: this.$refs['ual-mount-point']
-      }
+      options.authenticators.map(Auth => new Auth(options.nets)),
+      { containerElement: this.$refs['ual-mount-point'] }
     )
 
     ual.init()
