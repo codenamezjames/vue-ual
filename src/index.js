@@ -1,4 +1,4 @@
-const version = '0.0.1'
+const version = require('../package.json').version
 import ualTrigger from './components/ualTrigger.vue'
 
 const install = Vue => {
@@ -23,7 +23,7 @@ const plugin = {
 }
 
 export default plugin
-export { ualTrigger }
+export { ualTrigger, version }
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(plugin)

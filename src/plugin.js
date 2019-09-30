@@ -4,10 +4,10 @@
  */
 
 import Vue from 'vue'
-import plugin, {ualTrigger} from './index'
+import plugin, {ualTrigger, version} from './index'
 
 Vue.use(plugin)
-export {ualTrigger}
+export {ualTrigger, version}
 
 /*
  * NOTE:

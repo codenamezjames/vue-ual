@@ -1,15 +1,21 @@
 <template>
   <div id="app">
+    Version: {{version}}
     <ual-trigger />
   </div>
 </template>
 
 <script>
-import {ualTrigger} from './plugin'
+import {ualTrigger, version} from './plugin'
 export default {
   components: {
     ualTrigger
-  }
+  },
+  data: function() {
+return {
+    version
+  };
+}
 }
 </script>
 
