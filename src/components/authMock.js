@@ -76,17 +76,15 @@ MockAuthenticator.prototype.shouldAutoLogin = function() {
   return false;
 }
 MockAuthenticator.prototype.login = function(accountName) {
-  alert('Mock Login Authenticator Triggered');
+  // alert('Mock Login Authenticator Triggered');
   console.info('Attempted login with ', accountName);
+
   // Simulate login delay response
-  // return new Promise<[MockUser]>((resolve) => {
-  //   setTimeout(() => {
-  //     resolve([new MockUser(accountName || '', this.chains)])
-  //   }, 4000)
-  // })
-  // return Promise.reject(new UALError('it broke', UALErrorType.Login, null, 'Mock Authenticator'))
-  // Login without a delay response
-  return Promise.resolve([new MockUser(accountName || '', this.chains)]);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([new MockUser(accountName || '', this.chains)])
+    }, 4000)
+  })
 }
 MockAuthenticator.prototype.shouldRequestAccountName = function() {
   return Promise.resolve(true);

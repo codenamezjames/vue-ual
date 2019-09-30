@@ -26,9 +26,8 @@ export default {
     const ual = new UALJs(
       self.userCallback,
       [exampleNet],
-      'UAL Test',
+      'VUE UAL Test',
       [
-        // new Scatter([exampleNet], { appName: 'UAL Example' }),
         new Ledger([exampleNet]),
         new MockAuthenticator([exampleNet]),
       ],
