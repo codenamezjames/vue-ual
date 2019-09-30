@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.3] - 2019-09-29
 ### Added
 - ULA Library
+- ULA UI Library
+- ULA Ledger Library
+- Mock auth provider
+- Basic UI code just to show the button and modal
+- Updated Vue version
 
 ## [0.1.2] - 2019-09-29
 ### Changed
