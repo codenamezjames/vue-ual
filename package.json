@@ -23,7 +23,8 @@
     "src"
   ],
   "dependencies": {
-    "core-js": "^2.6.5"
+    "core-js": "^2.6.5",
+    "universal-authenticator-library": "^0.1.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
