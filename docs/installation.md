@@ -2,10 +2,10 @@
 
 ## Direct Download / CDN
 
-https://unpkg.com/vue-ual/dist/vue-ual 
+https://unpkg.com/vue-ual/dist/vue-ual
 
 [unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/vue-ual@{{ $version }}/dist/vue-ual.js
- 
+
 Include vue-ual after Vue and it will install itself automatically:
 
 ```html

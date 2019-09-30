@@ -20,7 +20,7 @@
 // If using a module system (e.g. via Vue CLI), import Vue and vue-ual and then call Vue.use(vue-ual).
 // import Vue from 'vue'
 // import vue-ual from 'vue-ual'
-// 
+//
 // Vue.use(vue-ual)
 
 // NOTE: here the example

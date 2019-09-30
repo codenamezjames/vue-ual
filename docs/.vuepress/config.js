@@ -6,7 +6,7 @@ module.exports = {
     '/': {
       lang: 'en-US',
       title: 'VueUal',
-      description: 'VueUal for Vue.js'
+      description: 'UAL for Vue.js'
     }
   },
   themeConfig: {

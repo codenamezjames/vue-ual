@@ -7,7 +7,7 @@ module.exports = (/*options, ctx*/) => ({
     computed: {
       $version () {
         return '${version}'
-      } 
+      }
     }
   })
 }`
