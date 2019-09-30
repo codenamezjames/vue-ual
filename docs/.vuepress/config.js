@@ -18,8 +18,8 @@ module.exports = {
         selectText: 'Languages',
         editLinkText: 'Edit this page on GitHub',
         nav: [{
-          text: 'Release Notes',
-          link: 'https://github.com//vue-ual/releases'
+          text: 'Changelog',
+          link: 'https://github.com/codenamezjames/vue-ula/blob/master/CHANGELOG.md'
         }],
         sidebar: [
           '/installation.md',
