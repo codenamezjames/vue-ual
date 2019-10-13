@@ -16,29 +16,44 @@
 
 ```javascript
 // Script:
-import {ualTrigger, version} from 'vue-ual'
+import {ualTrigger, version} from './plugin'
+import { Ledger } from 'ual-ledger'
 import { Scatter } from 'ual-scatter'
+import { MockAuthenticator } from './components/authMock'
 
 export default {
   components: {
     ualTrigger
   },
-  data () {
+  data: function() {
     return {
       version,
+      user: {
+        name: '',
+        chainId: ''
+      },
       opts: {
         name: 'VUE UAL test',
         nets: [{
           chainId: 12345,
-          rpcEndpoints: [{ protocol: 'https', host: 'example.net', port: Number(443), }]
+          rpcEndpoints: [{
+            protocol: 'https',
+            host: 'example.net',
+            port: Number(443),
+          }]
         }],
         authenticators: [
+          Ledger,
           {authenticator: Scatter, netChainIds: [12345], options: { appName: 'UAL Example' }},
-        ]
+          MockAuthenticator
+        ],
       }
-    }
+    };
   },
   methods: {
+    stringify (item) {
+      return JSON.stringify(item, null, 2)
+    },
     async userCallback (users) {
       const loggedInUser = users[0]
       this.user.name = await loggedInUser.getAccountName()
@@ -46,6 +61,8 @@ export default {
       console.info('User Information:')
       console.info('Account Name:', this.user.name)
       console.info('Chain Id:', this.user.chainId)
+
+      // balanceUpdateInterval = setInterval(updateBalance, 1000)
     }
   }
 }
